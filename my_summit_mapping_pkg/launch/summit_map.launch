@@ -1,0 +1,9 @@
+<launch>
+    
+    <arg name="map_file" default="$(find my_summit_mapping_pkg)/maps/summit_map.yaml" />
+    <!-- map provider node -->
+    <node pkg="map_server" type="map_server" name="map_provider"
+    output="screen" args="$( arg map_file)" >
+    </node>
+    
+</launch>

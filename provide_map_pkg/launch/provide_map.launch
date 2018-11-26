@@ -1,0 +1,9 @@
+<launch>
+    
+    <arg name="map_file" default="$(find provide_map_pkg)/config/my_map.yaml" />
+    <!-- map provider node -->
+    <node pkg="map_server" type="map_server" name="map_provider"
+    output="screen" args="$( arg map_file)" >
+    </node>
+    
+</launch>

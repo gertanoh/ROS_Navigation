@@ -1,0 +1,39 @@
+<launch>
+
+    <!-- Run the localization -->
+    <include file="$(find my_summit_localization_pkg)/launch/summit_localization.launch" />
+    <remap from="cmd_vel" to="/move_base/cmd_vel" />
+    
+    <!-- Run the move base -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        
+        <param name="base_global_planner" value="navfn/NavfnROS" />
+        <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+        
+        <rosparam file="$(find my_summit_planning_pkg)/config/move_base_params.yaml" 
+        command="load" />
+        
+        <!-- observation sources located in costmap_common.yaml -->
+        <rosparam file="$(find my_summit_planning_pkg)/config/costmap_common_params.yaml"
+        command="load" ns="global_costmap" />
+        <rosparam file="$(find my_summit_planning_pkg)/config/costmap_common_params.yaml"
+        command="load" ns="local_costmap" />
+        
+        <!-- local costmap parameters -->
+        <rosparam file="$(find my_summit_planning_pkg)/config/local_costmap_params.yaml"
+        command="load" />
+        <param name="local_costmap/width" value="10.0"/>
+        <param name="local_costmap/height" value="10.0"/>
+        
+        <!-- global costmap parameters -->
+        <rosparam file="$(find my_summit_planning_pkg)/config/global_costmap_params.yaml" 
+        command="load" />
+        
+        <rosparam file="$(find my_summit_planning_pkg)/config/dwa_local_planner_params.yaml"
+        command="load" />
+        <rosparam file="$(find my_summit_planning_pkg)/config/global_planner_params.yaml"
+        command="load" />
+        
+    </node>
+    
+</launch>

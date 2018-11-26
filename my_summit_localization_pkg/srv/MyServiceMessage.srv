@@ -1,0 +1,8 @@
+# custom service message for navigation project
+
+# request
+string label
+---
+# response
+bool navigation_sucessfull
+string message

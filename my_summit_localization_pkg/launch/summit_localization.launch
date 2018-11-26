@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="scan_topic"  default="hokuyo_base/scan" />
+  
+  <!-- Run the mapping -->
+  <include file="$(find my_summit_mapping_pkg)/launch/summit_map.launch" />
+  
+  <node pkg="amcl" type="amcl" name="amcl">
+    <rosparam file="$(find my_summit_localization_pkg)/params/localization_params.yaml" 
+    command="load" />
+    <remap from="scan" to="$(arg scan_topic)"/>
+    <!-- <remap from="cmd_vel" to="/summit_xl_controller/cmd_vel"/> -->
+  </node>
+
+</launch>
